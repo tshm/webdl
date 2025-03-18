@@ -24,7 +24,6 @@ RUN ARCH=$(uname -m) && \
   wget -qO /usr/local/bin/yt-dlp "$YTDLP_URL" && \
   chmod a+x /usr/local/bin/yt-dlp
 
-COPY public /app/public
 WORKDIR /app
 EXPOSE 8080
 
