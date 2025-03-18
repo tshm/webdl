@@ -27,6 +27,8 @@ type FormData struct {
 func main() {
 	http.HandleFunc("/", handleForm)
 	http.HandleFunc("/download/", handleDownload)
+	fs := http.FileServer(http.Dir("public"))
+	http.Handle("/public/", http.StripPrefix("/public/", fs))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -35,7 +37,10 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.New("form").Parse(`
 <!DOCTYPE html>
 <html>
-  <head><title>YouTube to MP3</title></head>
+  <head>
+    <title>YouTube to MP3</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic" />
+  </head>
   <body>
     <form method="POST">
       <label for="youtube_url">YouTube URL:</label><br>
@@ -44,6 +49,16 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
       <input type="email" id="email" name="email"><br><br>
       <input type="submit" value="Submit">
     </form>
+    <script>
+      window.onload = () => {
+        const email = document.getElementById("email");
+        email.value = localStorage.getItem("email");
+        const form = document.querySelector("form");
+        form.addEventListener("submit", () => {
+            localStorage.setItem("email", email.value); // Save to local storage on submit
+        });
+      };
+    </script>
   </body>
 </html>`))
 		tmpl.Execute(w, nil)
