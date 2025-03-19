@@ -1,6 +1,54 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "git-cliff@latest": {
+      "last_modified": "2025-02-23T09:42:26Z",
+      "resolved": "github:NixOS/nixpkgs/2d068ae5c6516b2d04562de50a58c682540de9bf#git-cliff",
+      "source": "devbox-search",
+      "version": "2.8.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0"
+        }
+      }
+    },
     "github:NixOS/nixpkgs/nixpkgs-unstable": {
       "resolved": "github:NixOS/nixpkgs/9bc8a90931262245919a26f995c1f24c6c70d3fe?lastModified=1742237028&narHash=sha256-xlpHmgBxUnvHo8FNnju0sgnEyasb4gC607b%2BkeqjmX8%3D"
     },
