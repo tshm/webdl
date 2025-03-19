@@ -1,7 +1,7 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "git-cliff@latest": {
+    "git-cliff@2.8.0": {
       "last_modified": "2025-02-23T09:42:26Z",
       "resolved": "github:NixOS/nixpkgs/2d068ae5c6516b2d04562de50a58c682540de9bf#git-cliff",
       "source": "devbox-search",
