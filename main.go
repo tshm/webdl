@@ -110,9 +110,6 @@ func processDownload(formData FormData, r *http.Request) {
 	if len(files) > 1 {
 		userName := strings.Split(formData.Email, "@")[0]
 		currentTime := time.Now().Format("20060102150405")
-		if err != nil {
-			log.Println("Error getting current time:", err)
-		}
 		zipFilename := filepath.Join("public", userName+"_"+currentTime+".zip")
 		err = zipFiles(files, zipFilename)
 		if err != nil {
