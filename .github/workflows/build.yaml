@@ -49,3 +49,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/main' && steps.meta.outputs.tags != ''
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.meta.outputs.tags }}
+          name: Release ${{ steps.meta.outputs.tags }}
+          body: |
+            Docker image release ${{ steps.meta.outputs.tags }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
