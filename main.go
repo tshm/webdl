@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -24,6 +25,9 @@ type FormData struct {
 	Email      string
 }
 
+type TemplateData struct {
+}
+
 func main() {
 	http.HandleFunc("/", handleForm)
 	http.HandleFunc("/download/", handleDownload)
@@ -35,33 +39,12 @@ func main() {
 
 func handleForm(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		tmpl := template.Must(template.New("form").Parse(`
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>YouTube to MP3</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic" />
-  </head>
-  <body>
-    <form method="POST">
-      <label for="youtube_url">YouTube URL:</label><br>
-      <input type="text" id="youtube_url" name="youtube_url"><br><br>
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email"><br><br>
-      <input type="submit" value="Submit">
-    </form>
-    <script>
-      window.onload = () => {
-        const email = document.getElementById("email");
-        email.value = localStorage.getItem("email");
-        const form = document.querySelector("form");
-        form.addEventListener("submit", () => {
-          localStorage.setItem("email", email.value); // Save to local storage on submit
-        });
-      };
-    </script>
-  </body>
-</html>`))
+		tmpl, err := template.ParseFiles(filepath.Join(".", "main.html"))
+		if err != nil {
+			log.Println("Error loading template:", err)
+			http.Error(w, "Error loading template", http.StatusInternalServerError)
+			return
+		}
 		tmpl.Execute(w, nil)
 		return
 	}
@@ -118,19 +101,24 @@ func processDownload(formData FormData) {
 		return
 	}
 
+	baseURL := getBaseURL(r)
+
 	var downloadLink string
 	if len(files) > 1 {
 		userName := strings.Split(formData.Email, "@")[0]
 		currentTime := time.Now().Format("20060102150405")
+		if err != nil {
+			log.Println("Error getting current time:", err)
+		}
 		zipFilename := filepath.Join("public", userName+"_"+currentTime+".zip")
 		err = zipFiles(files, zipFilename)
 		if err != nil {
 			log.Println("Error zipping files:", err)
 			return
 		}
-		downloadLink = "http://localhost:8080/download/" + filepath.Base(zipFilename)
+		downloadLink = "http://" + baseURL + "/download/" + filepath.Base(zipFilename)
 	} else if len(files) == 1 {
-		downloadLink = "http://localhost:8080/download/" + filepath.Base(files[0])
+		downloadLink = "http://" + baseURL + "/download/" + filepath.Base(files[0])
 	} else {
 		log.Println("No mp3 files found")
 		return
@@ -239,4 +227,15 @@ func cleanUpOldFiles() {
 		}
 		return nil
 	})
+}
+
+func getBaseURL(r *http.Request) string {
+	host := r.Host
+	if strings.Contains(host, ":") {
+		host, _, _ = strings.Cut(host, ":")
+	}
+	if host == "localhost" {
+		host = "localhost:8080"
+	}
+	return host
 }

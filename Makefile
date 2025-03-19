@@ -1,5 +1,8 @@
 # build script
 
+run: main
+	./main
+
 # docker run with .env file
 test: image
 	docker run -p 8080:8080 --env-file .env -it webdl
@@ -7,6 +10,6 @@ test: image
 image:
 	docker build -t webdl .
 
-main: main.go
+main: main.go main.html
 	go get ./...
-	go build
+	go build -o ./main
