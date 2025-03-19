@@ -32,8 +32,8 @@ func main() {
 	http.HandleFunc("/download/", handleDownload)
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/public/", http.StripPrefix("/public/", fs))
-	log.Println("Server started on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Server started on http://localhost:8888")
+	log.Fatal(http.ListenAndServe(":8888", nil))
 }
 
 func handleForm(w http.ResponseWriter, r *http.Request) {
@@ -70,8 +70,12 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func processDownload(formData FormData, r *http.Request) {
+	x := getBaseURL(r)
+	log.Println("baseurl", x)
+
 	log.Println("Processing download request for:", formData.YouTubeURL)
-	outputDir := "public/" + uuid.New().String()
+	uuidstr := uuid.New().String()
+	outputDir := "public/" + uuidstr
 	err := os.MkdirAll(outputDir, 0755)
 	if err != nil {
 		log.Println("Error creating directory:", err)
@@ -81,7 +85,7 @@ func processDownload(formData FormData, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute) // 10 minutes timeout
 	defer cancel()
 
-	cmd := exec.CommandContext(ctx, "yt-dlp", "-x", "--audio-format", "mp3", "-o", filepath.Join(outputDir, "%(title)s.%(ext)s"), formData.YouTubeURL)
+	cmd := exec.CommandContext(ctx, "yt-dlp", "-x", "--audio-format", "mp3", "-o", filepath.Join(outputDir, "%(title).100B.%(ext)s"), formData.YouTubeURL)
 
 	var outb, errb bytes.Buffer
 	cmd.Stdout = &outb
@@ -102,7 +106,7 @@ func processDownload(formData FormData, r *http.Request) {
 
 	baseURL := getBaseURL(r)
 
-	var downloadLink string
+	var downloadLink string = baseURL + "/download/" + uuidstr + "/"
 	if len(files) > 1 {
 		userName := strings.Split(formData.Email, "@")[0]
 		currentTime := time.Now().Format("20060102150405")
@@ -115,14 +119,15 @@ func processDownload(formData FormData, r *http.Request) {
 			log.Println("Error zipping files:", err)
 			return
 		}
-		downloadLink = "http://" + baseURL + "/download/" + filepath.Base(zipFilename)
+		downloadLink += filepath.Base(zipFilename)
 	} else if len(files) == 1 {
-		downloadLink = "http://" + baseURL + "/download/" + filepath.Base(files[0])
+		downloadLink += filepath.Base(files[0])
 	} else {
 		log.Println("No mp3 files found")
 		return
 	}
-
+	downloadLink = strings.ReplaceAll(downloadLink, " ", "%20")
+	log.Println("Download link:", downloadLink)
 	sendEmail(formData.Email, "Download your files here: "+downloadLink)
 	log.Println("Download link emailed to:", formData.Email)
 	cleanUpOldFiles()
@@ -228,13 +233,18 @@ func cleanUpOldFiles() {
 	})
 }
 
+// get base url, if server url is http://xxx:888/path, then it should
+// return http://xxx:888/.
 func getBaseURL(r *http.Request) string {
+	scheme := "http"
+	if r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" {
+		scheme = "https"
+	}
+
 	host := r.Host
-	if strings.Contains(host, ":") {
-		host, _, _ = strings.Cut(host, ":")
+	if host == "" {
+		host = "localhost:8888" // Fallback to default if Host header is empty
 	}
-	if host == "localhost" {
-		host = "localhost:8080"
-	}
-	return host
+
+	return scheme + "://" + host
 }
