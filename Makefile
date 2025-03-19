@@ -4,11 +4,9 @@
 test: image
 	docker run -p 8080:8080 --env-file .env -it webdl
 
-image: main
+image:
 	docker build -t webdl .
 
 main: main.go
 	go get ./...
 	go build
-
-

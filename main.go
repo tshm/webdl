@@ -29,6 +29,7 @@ func main() {
 	http.HandleFunc("/download/", handleDownload)
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/public/", http.StripPrefix("/public/", fs))
+	log.Println("Server started on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -55,7 +56,7 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
         email.value = localStorage.getItem("email");
         const form = document.querySelector("form");
         form.addEventListener("submit", () => {
-            localStorage.setItem("email", email.value); // Save to local storage on submit
+          localStorage.setItem("email", email.value); // Save to local storage on submit
         });
       };
     </script>
@@ -66,6 +67,7 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == http.MethodPost {
+		log.Println("Download request received")
 		err := r.ParseForm()
 		if err != nil {
 			http.Error(w, "Error parsing form", http.StatusInternalServerError)
@@ -86,6 +88,7 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func processDownload(formData FormData) {
+	log.Println("Processing download request for:", formData.YouTubeURL)
 	outputDir := "public/" + uuid.New().String()
 	err := os.MkdirAll(outputDir, 0755)
 	if err != nil {
@@ -182,6 +185,7 @@ func zipFiles(files []string, dest string) error {
 }
 
 func sendEmail(to, message string) {
+	log.Println("Sending email to:", to)
 	from := os.Getenv("EMAIL_USER")
 	password := os.Getenv("EMAIL_PASSWORD")
 
@@ -202,6 +206,7 @@ func sendEmail(to, message string) {
 }
 
 func handleDownload(w http.ResponseWriter, r *http.Request) {
+	log.Println("Download request received")
 	filename := strings.TrimPrefix(r.URL.Path, "/download/")
 	filePath := filepath.Join("public", filename)
 
@@ -214,6 +219,7 @@ func handleDownload(w http.ResponseWriter, r *http.Request) {
 }
 
 func cleanUpOldFiles() {
+	log.Println("Cleaning up old files")
 	daysStr := os.Getenv("FILE_RETENTION_DAYS")
 	days := 7 // Default retention of 7 days
 	if daysStr != "" {
@@ -228,6 +234,7 @@ func cleanUpOldFiles() {
 			return err
 		}
 		if !info.IsDir() && info.ModTime().Before(cutoff) {
+			log.Println("Removing old file:", path)
 			os.Remove(path)
 		}
 		return nil
