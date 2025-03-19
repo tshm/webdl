@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2025-03-19
+
+### 🐛 Bug Fixes
+
+- *(setup)* Use yt-dlp from distribution
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Add latest tag
+
 ## [0.1.1] - 2025-03-19
 
 ### 🐛 Bug Fixes
@@ -11,6 +21,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - Add arm build
+- Bump version
 
 ## [0.1.0] - 2025-03-19
 
