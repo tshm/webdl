@@ -4,3 +4,4 @@ public
 pkg
 bin
 module
+.env

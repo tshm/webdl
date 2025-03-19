@@ -1,0 +1,8 @@
+# docker-compose.yaml for webdl web service at port 8080
+services:
+  web:
+    build: .
+    # image: ghcr.io/tshm/webdl/webdl
+    ports:
+      - "8080:8080"
+    restart: always
