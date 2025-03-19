@@ -37,6 +37,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/webdl
           tags: |
+            type=raw,value=latest,enable=true
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
