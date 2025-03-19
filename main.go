@@ -10,7 +10,6 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
-	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -62,7 +61,7 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 			Email:      r.FormValue("email"),
 		}
 
-		go processDownload(formData)
+		go processDownload(formData, r)
 		fmt.Fprintf(w, "Download request received. You will receive an email shortly.")
 		return
 	}
@@ -70,7 +69,7 @@ func handleForm(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 }
 
-func processDownload(formData FormData) {
+func processDownload(formData FormData, r *http.Request) {
 	log.Println("Processing download request for:", formData.YouTubeURL)
 	outputDir := "public/" + uuid.New().String()
 	err := os.MkdirAll(outputDir, 0755)
