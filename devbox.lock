@@ -1,51 +1,51 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "git-cliff@2.8.0": {
-      "last_modified": "2025-02-23T09:42:26Z",
-      "resolved": "github:NixOS/nixpkgs/2d068ae5c6516b2d04562de50a58c682540de9bf#git-cliff",
+    "git-cliff@2.13.1": {
+      "last_modified": "2026-08-27T07:16:00Z",
+      "resolved": "github:NixOS/nixpkgs/c27cdad491a991b11ed731760aa2ef8db0cb0410#git-cliff",
       "source": "devbox-search",
-      "version": "2.8.0",
+      "version": "2.13.1",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0",
+              "path": "/nix/store/niqi6qhjnm4ycaxl1r3wm04mayd0wc10-git-cliff-2.13.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0"
+          "store_path": "/nix/store/niqi6qhjnm4ycaxl1r3wm04mayd0wc10-git-cliff-2.13.1"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0",
+              "path": "/nix/store/abvydgp9isl4h8gz3f4r1mwd0hn562i8-git-cliff-2.13.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0"
+          "store_path": "/nix/store/abvydgp9isl4h8gz3f4r1mwd0hn562i8-git-cliff-2.13.1"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0",
+              "path": "/nix/store/655s0jga2a8a2721ivjkxy367qc15j1n-git-cliff-2.13.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0"
+          "store_path": "/nix/store/655s0jga2a8a2721ivjkxy367qc15j1n-git-cliff-2.13.1"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0",
+              "path": "/nix/store/hr9gvfpl4rycjrx75p887nx4q7v9iqx2-git-cliff-2.13.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0"
+          "store_path": "/nix/store/hr9gvfpl4rycjrx75p887nx4q7v9iqx2-git-cliff-2.13.1"
         }
       }
     },
