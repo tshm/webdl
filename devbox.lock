@@ -1,51 +1,41 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "git-cliff@2.8.0": {
-      "last_modified": "2025-02-23T09:42:26Z",
-      "resolved": "github:NixOS/nixpkgs/2d068ae5c6516b2d04562de50a58c682540de9bf#git-cliff",
+    "git-cliff@2.14.2": {
+      "last_modified": "2026-10-08T19:21:32Z",
+      "resolved": "github:NixOS/nixpkgs/8edc0c72e3a38faf5434e40d1f19431125fe4b30#git-cliff",
       "source": "devbox-search",
-      "version": "2.8.0",
+      "version": "2.14.2",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0",
+              "path": "/nix/store/gxzlxavc1czjasm8niszv13zjd2z8nzv-git-cliff-2.14.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/bacw71lnpwgk0qg1c86x7045vyiwzgi7-git-cliff-2.8.0"
+          "store_path": "/nix/store/gxzlxavc1czjasm8niszv13zjd2z8nzv-git-cliff-2.14.2"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0",
+              "path": "/nix/store/90s1ycdd07q85l2cjhnz4hq4iwpawc4g-git-cliff-2.14.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/nx4jhqwv4xvcircbqxiwzc4mp6d64fa8-git-cliff-2.8.0"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/jah1dsqf35fqvwr2z5pmwk9s1k9gizdz-git-cliff-2.8.0"
+          "store_path": "/nix/store/90s1ycdd07q85l2cjhnz4hq4iwpawc4g-git-cliff-2.14.2"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0",
+              "path": "/nix/store/aylpzjd3zv75va8dxxwzl3hiqj3lh803-git-cliff-2.14.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/c6wyqlaq876jvxan7k0kgczwy6qdi4vd-git-cliff-2.8.0"
+          "store_path": "/nix/store/aylpzjd3zv75va8dxxwzl3hiqj3lh803-git-cliff-2.14.2"
         }
       }
     },
